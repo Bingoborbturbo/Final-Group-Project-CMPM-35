@@ -13,12 +13,12 @@
 
 		<script type="module">
 
-			import * as THREE from '../build/three.module.js';
+			import * as THREE from './Build/three.module.js';
 
-			import Stats from './jsm/libs/stats.module.js';
+			import Stats from './stats.module.js';
 
-			import { Curves } from './jsm/curves/CurveExtras.js';
-			import { ParametricGeometries } from './jsm/geometries/ParametricGeometries.js';
+			import { Curves } from './CurveExtras.js';
+			import { ParametricGeometries } from './ParametricGeometries.js';
 
 			let camera, scene, renderer, stats;
 
@@ -45,7 +45,7 @@
 
 				//
 
-				const map = new THREE.TextureLoader().load( 'textures/uv_grid_opengl.jpg' );
+				const map = new THREE.TextureLoader().load( './uv_grid_opengl.jpg' );
 				map.wrapS = map.wrapT = THREE.RepeatWrapping;
 				map.anisotropy = 16;
 
