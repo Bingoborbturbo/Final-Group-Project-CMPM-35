@@ -113,6 +113,25 @@
 				stars.scale.set(150, 150, 1)
 				stars.position.set(20, 50);
 				scene.add( stars );
+
+				new_map = new THREE.TextureLoader().load('./textures/cloud.png');
+				new_material = new THREE.SpriteMaterial( {
+					map: new_map
+				});
+				let cloud = new THREE.Sprite( new_material );
+				cloud.scale.set(200, 150, 1)
+				cloud.position.set(100, 150);
+				scene.add( cloud );
+
+				new_map = new THREE.TextureLoader().load('./textures/whales.png');
+				new_material = new THREE.SpriteMaterial( {
+					map: new_map
+				});
+				let whales = new THREE.Sprite( new_material );
+				whales.scale.set(200, 150, 1)
+				whales.position.set(100, 200);
+				scene.add( whales );
+
 			}
 
 			function onWindowResize() {
