@@ -12,8 +12,8 @@ import {
 	Vector2,
 	Vector4
 } from "./Build/three.module.js";
-import { Reflector } from "./Reflector.js";
-import { Refractor } from "./Refractor.js";
+import { Reflector } from "../Reflector.js";
+import { Refractor } from "../Refractor.js";
 
 /**
  * References:

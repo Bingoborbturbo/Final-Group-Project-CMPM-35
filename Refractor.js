@@ -13,7 +13,7 @@ import {
 	Vector3,
 	Vector4,
 	WebGLRenderTarget
-} from "./Build/three.module.js";
+} from "./js/three.module.js";
 
 var Refractor = function ( geometry, options ) {
 
