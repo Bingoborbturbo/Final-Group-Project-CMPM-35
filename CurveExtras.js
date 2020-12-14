@@ -16,6 +16,12 @@ import {
  * https://prideout.net/blog/old/blog/index.html@p=44.html
  */
 
+const objLoader = new OBJloader2();
+objLoader.load('./Mamey.obj' , (obj) ); {
+	scene.add(obj);
+}
+
+
 var Curves = ( function () {
 
 	// GrannyKnot
