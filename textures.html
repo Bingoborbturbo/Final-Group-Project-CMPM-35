@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js webgl - parametric geometries</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+	</head>
+	<body>
+
+		<div id="container"></div>
+		<div id="info"><a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> webgl - parametric geometries</div>
+
+		<script type="module">
+
+			import * as THREE from './Build/three.module.js';
+
+			import { Water } from './Water2.js';
+
+			let camera, scene, renderer, stats, water;
+
+			const params = {
+				color: '#ffffff',
+				scale: 1,
+				flowX: 1,
+				flowY: 1
+			};
+
+			init();
+			animate();
+
+			function init() {
+
+				const container = document.getElementById( 'container' );
+
+				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+				camera.position.y = 400;
+
+				scene = new THREE.Scene();
+				scene.background = new THREE.TextureLoader().load(
+					'./textures/prairie-sky-2.jpg' );
+
+				// light
+
+				const ambientLight = new THREE.AmbientLight( 0xfffffff, 1 );
+				scene.add( ambientLight );
+
+				const pointLight = new THREE.PointLight( 0xffffff );
+				camera.add( pointLight );
+				scene.add( camera );
+
+				// 
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				// "water"
+	
+				const waterGeometry = new THREE.PlaneBufferGeometry( 800, 800 );
+
+				water = new Water( waterGeometry, {
+					color: params.color,
+					scale: params.scale,
+					flowDirection: new THREE.Vector2( params.flowX, params.flowY ),
+					textureWidth: 1024,
+					textureHeight: 1024
+				} );
+
+				water.position.y = -100;
+				water.rotation.x = Math.PI * - 0.5;
+				scene.add( water );
+				
+				// background "objects"
+
+				let new_material, new_map;
+
+				new_map = new THREE.TextureLoader().load('./textures/hot_air_balloon.png');
+				new_material = new THREE.SpriteMaterial( {
+					map: new_map
+				});
+				let hotAirBalloon = new THREE.Sprite( new_material );
+				hotAirBalloon.scale.set(50, 60, 1)
+				hotAirBalloon.position.set(250, 300);
+				scene.add( hotAirBalloon );
+
+				new_map = new THREE.TextureLoader().load('./textures/birds.png');
+				new_material = new THREE.SpriteMaterial( {
+					map: new_map
+				});
+				let birds = new THREE.Sprite( new_material );
+				birds.scale.set(150, 50, 1)
+				birds.position.set(-200, 200);
+				scene.add( birds );
+
+				new_map = new THREE.TextureLoader().load('./textures/moon.png');
+				new_material = new THREE.SpriteMaterial( {
+					map: new_map
+				});
+				let moon = new THREE.Sprite( new_material );
+				moon.scale.set(50, 50, 1)
+				moon.position.set(20, 50);
+				scene.add( moon );
+
+				new_map = new THREE.TextureLoader().load('./textures/stars.png');
+				new_material = new THREE.SpriteMaterial( {
+					map: new_map
+				});
+				let stars = new THREE.Sprite( new_material );
+				stars.scale.set(150, 150, 1)
+				stars.position.set(20, 50);
+				scene.add( stars );
+			}
+
+			function onWindowResize() {
+
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+
+				renderer.setSize( window.innerWidth, window.innerHeight );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+
+				render();
+				stats.update();
+
+			}
+
+			function render() {
+
+				const timer = Date.now() * 0.0001;
+
+				camera.position.x = Math.cos( timer ) * 800;
+				camera.position.z = Math.sin( timer ) * 800;
+
+				camera.lookAt( scene.position );
+
+				/*scene.traverse( function ( object ) {
+
+					if ( object.isMesh === true && !) {
+
+						object.rotation.x = timer * 5;
+						object.rotation.y = timer * 2.5;
+
+					}
+
+				} ); */
+
+				renderer.render( scene, camera );
+
+			}
+
+		</script>
+
+	</body>
+</html>
