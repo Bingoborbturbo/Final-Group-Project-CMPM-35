@@ -6,9 +6,8 @@ Poom (Sirapat) Phunjamaneechot
 Jonathan Palafox
 
 Our scene includes:
-* moving scene
-* some orbit camera controls (moving scene restricts orbit controls)
+* orbit camera controls
 * sprites
 * a water plane that looks more like a mirror
 * background
-* objects with corresponding materials
+* objects with corresponding materials (pepsi and porygon eyes)
