@@ -13,5 +13,4 @@ Our scene includes:
 * a water plane that looks more like a mirror
 * background
 * objects with corresponding materials (pepsi and porygon eyes)
-
-![alt text](Screenshot (108).png)
+![alt text](final2.png)
