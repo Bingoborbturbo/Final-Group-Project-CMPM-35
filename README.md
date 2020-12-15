@@ -1,9 +1,11 @@
 # Final-Group-Project-CMPM-35
 
 Group Members: 
-Ashley Lu
-Poom (Sirapat) Phunjamaneechot
-Jonathan Palafox
+Ashley Lu,
+
+Poom (Sirapat) Phunjamaneechot,
+
+Jonathan Palafox,
 
 Our scene includes:
 * orbit camera controls
@@ -11,3 +13,4 @@ Our scene includes:
 * a water plane that looks more like a mirror
 * background
 * objects with corresponding materials (pepsi and porygon eyes)
+![alt text](final.png)
