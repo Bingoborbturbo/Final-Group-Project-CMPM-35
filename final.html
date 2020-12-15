@@ -13,9 +13,10 @@
 
 		<script type="module">
 
-			import * as THREE from './Build/three.module.js';
-
-			import { Water } from './Water2.js';
+			import * as THREE from './js/three.module.js';
+			import { OrbitControls } from './js/OrbitControls.js';
+			import { Water } from './js/Water2.js';
+			//import { OBJLoader } from './js/OBJLoader.js';
 
 			let camera, scene, renderer, stats, water;
 
@@ -33,12 +34,25 @@
 
 				const container = document.getElementById( 'container' );
 
-				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
-				camera.position.y = 400;
+				camera = new THREE.PerspectiveCamera( 55, window.innerWidth / window.innerHeight, 1, 2000 );
+				camera.position.z = 500;
 
 				scene = new THREE.Scene();
 				scene.background = new THREE.TextureLoader().load(
 					'./textures/prairie-sky-2.jpg' );
+
+				renderer = new THREE.WebGLRenderer( { antialias: true } );
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setSize( window.innerWidth, window.innerHeight );
+				container.appendChild( renderer.domElement );
+
+				window.addEventListener( 'resize', onWindowResize, false );
+
+				const orbitControls = new OrbitControls(camera, renderer.domElement);
+				orbitControls.target.set(0, 0.5, 0);
+				orbitControls.update()
+				orbitControls.enablePan = false;
+				
 
 				// light
 
@@ -49,14 +63,6 @@
 				camera.add( pointLight );
 				scene.add( camera );
 
-				// 
-
-				renderer = new THREE.WebGLRenderer( { antialias: true } );
-				renderer.setPixelRatio( window.devicePixelRatio );
-				renderer.setSize( window.innerWidth, window.innerHeight );
-				container.appendChild( renderer.domElement );
-
-				window.addEventListener( 'resize', onWindowResize, false );
 
 				// "water"
 	
@@ -73,6 +79,20 @@
 				water.position.y = -100;
 				water.rotation.x = Math.PI * - 0.5;
 				scene.add( water );
+
+				// objects
+				/*
+				const loader = new OBJLoader();
+				loader.load('./Mamey.obj', 
+					function (object) {
+						object.position.set(50, -5);
+						object.scale.set(10, 10, 1);
+						scene.add(object);
+						render();
+					}, undefined, function(error) {
+						console.error(error);
+					} );
+				*/
 				
 				// background "objects"
 
@@ -80,7 +100,7 @@
 
 				new_map = new THREE.TextureLoader().load('./textures/hot_air_balloon.png');
 				new_material = new THREE.SpriteMaterial( {
-					map: new_map
+					map: new_map,
 				});
 				let hotAirBalloon = new THREE.Sprite( new_material );
 				hotAirBalloon.scale.set(50, 60, 1)
@@ -146,14 +166,13 @@
 			function animate() {
 
 				requestAnimationFrame( animate );
-
-				render();
-				stats.update();
+        		render();
 
 			}
+			animate();
 
-			function render() {
-
+			function render() { 
+				// comment out timer and camera positions for full orbit controls
 				const timer = Date.now() * 0.0001;
 
 				camera.position.x = Math.cos( timer ) * 800;
@@ -163,16 +182,16 @@
 
 				/*scene.traverse( function ( object ) {
 
-					if ( object.isMesh === true && !) {
+					if ( object.isMesh != true) {
 
-						object.rotation.x = timer * 5;
-						object.rotation.y = timer * 2.5;
+						//object.rotation.y = timer * 0.1;
+						//object.rotation.y = timer * 0.5;
 
 					}
 
 				} ); */
 
-				renderer.render( scene, camera );
+        		renderer.render(scene, camera);
 
 			}
 
